@@ -4,6 +4,12 @@ require 'json'
 
 require_relative './models/operation_confirm'
 require_relative './models/operation_calculate'
+require_relative './service/user_repository'
+require_relative './service/position_builder'
+require_relative './service/operation_create'
+require_relative './service/operation_response_builder'
+require_relative './service/calculate/discount_calculate'
+require_relative './service/calculate/cashback_calculate'
 
 class BasicApp < Sinatra::Base
   DB = Sequel.connect('sqlite://db/test.db')
