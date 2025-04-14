@@ -1,7 +1,7 @@
 class OperationCreate
   attr_reader :db, :user, :cashback, :discount, :positions
 
-  def initialize(db, user, cashback, discount, positions)
+  def initialize(db: , user: , cashback: , discount: , positions: )
     @db = db
     @user = user
     @cashback = cashback

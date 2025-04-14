@@ -2,13 +2,10 @@ class DiscountCalculate
   attr_reader :price, :quantity, :product, :positions
   
   def initialize(price: nil, quantity: nil, product: nil, positions: nil)
-    if positions
-      @positions = positions
-    else
-      @price = price
-      @quantity = quantity
-      @product = product
-    end
+    @positions = positions
+    @price = price
+    @quantity = quantity
+    @product = product
   end
 
   def discount_percent_product
@@ -30,11 +27,13 @@ class DiscountCalculate
     positions.sum { |p| p[:discount_summ] }.round(2)
   end
 
-  def total_without_discount
-    positions.sum { |p| p[:price] * p[:quantity] }.round(2)
-  end
-
   def total_with_discount
     (total_without_discount - total_discount).round(2)
+  end
+
+  private
+
+  def total_without_discount
+    positions.sum { |p| p[:price] * p[:quantity] }.round(2)
   end
 end

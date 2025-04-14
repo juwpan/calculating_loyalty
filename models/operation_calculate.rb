@@ -10,17 +10,13 @@ class OperationCalculate
     user = user_repo.find(payload[:user_id])
     positions = position_builder.positions
     discount = DiscountCalculate.new(positions: positions)
-    cashback = CashbackCalculate.new(user, positions, discount)
-    operation_id = OperationCreate.new(db, user, cashback, discount, positions).create_operation
+    cashback = CashbackCalculate.new(user, positions, discount, db)
+    operation_id = operation(db, user, cashback, discount, positions).create_operation
 
-    OperationResponseBuilder.new(
-      user: user,
-      positions: positions,
-      discount: discount,
-      cashback: cashback,
-      operation_id: operation_id
-    ).build_response
+    response(user, positions, discount, cashback, operation_id).build_response
   end
+
+  private
 
   def user_repo
     @user_repo ||= UserRepository.new(db)
@@ -28,5 +24,25 @@ class OperationCalculate
 
   def position_builder
     @position_builder ||= PositionBuilder.new(db, payload)
+  end
+
+  def response(user, positions, discount, cashback, operation_id)
+    OperationResponseBuilder.new(
+      user: user,
+      positions: positions,
+      discount: discount,
+      cashback: cashback,
+      operation_id: operation_id
+    )
+  end
+
+  def operation(db, user, cashback, discount, positions)
+    OperationCreate.new(
+      db: db,
+      user: user,
+      cashback: cashback,
+      discount: discount,
+      positions: positions
+    )
   end
 end

@@ -1,28 +1,25 @@
 class CashbackCalculate
-  attr_reader :user, :positions, :discount
+  attr_reader :user, :positions, :discount, :db
 
-  def initialize(user, positions, discount)
+  def initialize(user, positions, discount, db)
+    @db = db
     @user = user
     @discount = discount
     @positions = positions
   end
 
-  def loyalty_level
-    @loyalty_level = user[:template_id] # 1 - Bronze, 2 - Silver, 3 - Gold
-  end
-
   def cashback_percent
     base = case loyalty_level
-          when 1 then 5
-          when 2 then 5
-          when 3 then 0
+          when 1 then template[:cashback]
+          when 2 then template[:cashback]
+          when 3 then template[:cashback]
           else 0
           end
   
     extra = positions.sum do |p|
       p[:type] == 'increased_cashback' ? p[:value].to_f : 0
     end
-  
+
     (base + extra).round(2)
   end
 
@@ -42,6 +39,12 @@ class CashbackCalculate
     [total_loyalty_sum, user[:bonus].to_f].min.round(2)
   end
 
+  private
+
+  def loyalty_level
+    @loyalty_level = user[:template_id] # 1 - Bronze, 2 - Silver, 3 - Gold
+  end
+
   def total_loyalty_sum
     total_sum = positions.inject(0) do |memo, position|
       if position[:type] != 'noloyalty'
@@ -51,5 +54,9 @@ class CashbackCalculate
     end
 
     total_sum.round(2)
+  end
+
+  def template
+    @template = db[:templates].where(id: user[:template_id]).first
   end
 end

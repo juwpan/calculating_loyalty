@@ -1,5 +1,3 @@
-require_relative 'calculate/discount_calculate'
-
 class PositionBuilder
   attr_reader :db, :payload
 
