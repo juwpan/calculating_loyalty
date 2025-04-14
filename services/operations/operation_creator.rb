@@ -1,4 +1,4 @@
-class OperationCreate
+class OperationCreator
   attr_reader :db, :user, :cashback, :discount, :positions
 
   def initialize(db: , user: , cashback: , discount: , positions: )

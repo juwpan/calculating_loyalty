@@ -19,15 +19,15 @@ class OperationCalculate
   private
 
   def user_repo
-    @user_repo ||= UserRepository.new(db)
+    @user_repo ||= UserDataService.new(db)
   end
 
   def position_builder
-    @position_builder ||= PositionBuilder.new(db, payload)
+    @position_builder ||= ProductPositionBuilder.new(db, payload)
   end
 
   def response(user, positions, discount, cashback, operation_id)
-    OperationResponseBuilder.new(
+    OperationDetailsBuilder.new(
       user: user,
       positions: positions,
       discount: discount,
@@ -37,7 +37,7 @@ class OperationCalculate
   end
 
   def operation(db, user, cashback, discount, positions)
-    OperationCreate.new(
+    OperationCreator.new(
       db: db,
       user: user,
       cashback: cashback,

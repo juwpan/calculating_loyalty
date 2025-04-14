@@ -40,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{    \n    \"user\": {\n        \"id\": 1,\n        \"template_id\": 1,\n        \"name\": \"Иван\",\n        \"bonus\": \"10000.0\"\n    },\n    \"operation_id\": 49,\n    \"write_off\": 150\n}",
+					"raw": "{    \n    \"user\": {\n        \"id\": 1,\n        \"template_id\": 1,\n        \"name\": \"Иван\",\n        \"bonus\": \"10000.0\"\n    },\n    \"operation_id\": 65,\n    \"write_off\": 150\n}",
 					"options": {
 						"raw": {
 							"language": "json"

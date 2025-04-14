@@ -1,4 +1,4 @@
-class OperationResponseBuilder
+class OperationDetailsBuilder
   attr_reader :user, :operation_id, :positions, :discount, :cashback
 
   def initialize(user: ,  positions: , discount: , cashback: , operation_id: )

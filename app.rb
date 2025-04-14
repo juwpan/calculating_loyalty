@@ -4,6 +4,7 @@ require 'json'
 
 Dir["./models/**/*.rb"].sort.each { |f| require_relative f }
 Dir["./services/**/*.rb"].sort.each { |f| require_relative f }
+Dir["./services/operations/**/*.rb"].sort.each { |f| require_relative f }
 
 class BasicApp < Sinatra::Base
   DB = Sequel.connect('sqlite://db/test.db')
@@ -13,7 +14,7 @@ class BasicApp < Sinatra::Base
   end
 
   post '/submit' do
-    process_request(OperationConfirm)
+    process_request(OperationSubmit)
   end
 
   private

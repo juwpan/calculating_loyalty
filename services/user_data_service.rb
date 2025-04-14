@@ -1,4 +1,4 @@
-class UserRepository
+class UserDataService
   attr_reader :db
 
   def initialize(db)

@@ -1,4 +1,4 @@
-class PositionBuilder
+class ProductPositionBuilder
   attr_reader :db, :payload
 
   def initialize(db, payload)
